@@ -9,7 +9,7 @@
 
 <meta property="og:title" content="قميص أثر الرجالي – أناقة تدوم طوال اليوم">
 <meta property="og:description" content="قميص رجالي راقٍ من أثر، بألوان متعددة وسعر 3900 دج مع توصيل لجميع الولايات.">
-<meta property="og:image" content="6 (1).jpg">
+<meta property="og:image" content="8 (1).jpg">
 <meta property="og:type" content="product">
 <meta property="og:url" content="https://athar-shop.com/qamis-athar">
 
@@ -19,7 +19,7 @@
   "@type": "Product",
   "name": "قميص أثر الرجالي",
   "description": "قميص رجالي راقٍ من أثر، مصنوع من أجود أنواع الأقمشة.",
-  "image": "6 (1).jpg",
+  "image": "8 (1).jpg",
   "brand": { "@type": "Brand", "name": "أثر" },
   "offers": {
     "@type": "Offer",
@@ -277,13 +277,13 @@ input[type="radio"] { accent-color: #000; width: 18px; height: 18px; }
 <main class="container">
 
 <div class="quality-wrapper" id="qualityWrapper">
-  <button class="quality-btn active" data-quality="1" type="button">
+  <button class="quality-btn active" data-quality="2" type="button">
     <span class="quality-main">النوعية الأولى</span>
-    <span class="quality-sub">(موتيف)</span>
-  </button>
-  <button class="quality-btn" data-quality="2" type="button">
-    <span class="quality-main">النوعية الثانية</span>
     <span class="quality-sub">(موشتي)</span>
+  </button>
+  <button class="quality-btn" data-quality="1" type="button">
+    <span class="quality-main">النوعية الثانية</span>
+    <span class="quality-sub">(موتيف)</span>
   </button>
 </div>
 
@@ -291,7 +291,7 @@ input[type="radio"] { accent-color: #000; width: 18px; height: 18px; }
   <button class="slider-btn prev" id="prevBtn" aria-label="السابق" type="button">&#9664;</button>
   <button class="slider-btn next" id="nextBtn" aria-label="التالي" type="button">&#9654;</button>
   <div class="slider">
-    <img id="mainSliderImg" src="7 (1).jpg" alt="قميص أثر" loading="eager" width="500" height="500">
+    <img id="mainSliderImg" src="10 (1).jpg" alt="قميص أثر" loading="eager" width="500" height="500">
   </div>
   <div class="thumbnails" id="thumbnails"></div>
 </div>
@@ -336,7 +336,7 @@ input[type="radio"] { accent-color: #000; width: 18px; height: 18px; }
 </div>
 
 <div class="order-card">
-  <div class="order-title-wrap"><div class="order-title">للطلب يرجى منكم ملء معلوماتكم</div></div>
+  <div class="order-title-wrap"><div class="order-title"> يرجى منكم ملء معلوماتكم</div></div>
   <form id="order-form" autocomplete="on" novalidate>
 
     <div class="hp-field" aria-hidden="true">
@@ -459,7 +459,7 @@ input[type="radio"] { accent-color: #000; width: 18px; height: 18px; }
 
   var QUALITY_TYPES = {
     1: {
-      name: 'النوعية الأولى',
+      name: 'النوعية الثانية',
       sub: '(موتيف)',
       colors: [
         { id: 'q1-mocha',        label: 'موكا',        hex: '#B5887C', textColor: '#fff', images: ['6 (1).jpg','6 (2).jpg','6 (3).jpg','6 (4).jpg'] },
@@ -471,7 +471,7 @@ input[type="radio"] { accent-color: #000; width: 18px; height: 18px; }
       ]
     },
     2: {
-      name: 'النوعية الثانية',
+      name: 'النوعية الأولى',
       sub: '(موشتي)',
       colors: [
         { id: 'q2-azraq-malaki', label: 'أزرق ملكي',   hex: '#0C266A', textColor: '#fff', images: ['8 (1).jpg','8 (2).jpg','8 (3).jpg','8 (4).jpg'] },
@@ -484,7 +484,8 @@ input[type="radio"] { accent-color: #000; width: 18px; height: 18px; }
     }
   };
 
-  var currentQuality = 1;
+  /* ✅ النوعية الافتراضية عند الولوج إلى الموقع = الموشتي (2) */
+  var currentQuality = 2;
   var COLORS = QUALITY_TYPES[currentQuality].colors;
   var selectedColor = null;
   var selectedSize  = null;
@@ -887,7 +888,8 @@ input[type="radio"] { accent-color: #000; width: 18px; height: 18px; }
       showMessage('تمّ تأكيد طلبك ... سنتصل بك إن شاء اللَّه.', 'success');
 
       var form = $('order-form'); if (form) form.reset();
-      selectQuality(1);
+      /* ✅ العودة إلى النوعية الافتراضية = الموشتي (2) */
+      selectQuality(2);
       document.querySelectorAll('.size-btn').forEach(function (b) { b.classList.remove('active'); });
       selectedSize = null;
       var qi = $('quantity'); if (qi) qi.value = 1;
@@ -958,12 +960,12 @@ input[type="radio"] { accent-color: #000; width: 18px; height: 18px; }
       var form = $('order-form');
       if (form) form.addEventListener('submit', function (e) { e.preventDefault(); submitOrder(); });
 
-      buildColorGallery();
-      loadColorImages(0, 0);
+      /* ✅ التهيئة الأولى: الموشتي (2) بألوانها */
+      selectQuality(2);
       handleDeliveryChange();
       updateSummary();
 
-      console.log('[ATHAR] init done. COLORS count:', COLORS.length);
+      console.log('[ATHAR] init done. Quality:', currentQuality, '| COLORS count:', COLORS.length);
     } catch (err) {
       console.error('[ATHAR] INIT ERROR:', err);
       var box = document.getElementById('messageBox');
